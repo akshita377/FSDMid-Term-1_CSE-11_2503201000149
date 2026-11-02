@@ -171,7 +171,22 @@ app.put('/api/books/:id', (req, res) => {
 
 });
 
+// TASK 5: DELETE a book by ID
+app.delete('/api/books/:id', (req, res) => {
+    const id = Number(req.params.id);
 
+    const index = books.findIndex(book => book.id === id);
+
+    if (index === -1) {
+        return res.status(404).json({ message: "Book not found" });
+    }
+
+    books.splice(index, 1);
+
+    res.status(200).json({ message: "Book deleted successfully" });
+});
+
+  
 // Start server on port 3000
 app.listen(3000, () => {
     console.log("Server running on port 3000");
